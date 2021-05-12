@@ -26,8 +26,16 @@ compinit -i -C -d "${HOME}/.zcompdump-${HOST/.*/}-${ZSH_VERSION}" # Load only fr
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })' 
 
-# Set vim as editor if connected via SSH
-[ -n "$SSH_CONNECTION" ] && export EDITOR=vim
+if ! [ -n "$SSH_CONNECTION" ]; then
+	export EDITOR='code --wait'
+else
+	export EDITOR=vim
+fi
+
+export AURDEST=/mnt/jupiter/etc/makepkg/pkgbuilds/
+#export AUR_PAGER="less -K"
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
 
 # oh-my-zsh crap
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh

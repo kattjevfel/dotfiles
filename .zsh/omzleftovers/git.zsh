@@ -1,4 +1,4 @@
-# This is ripped from https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
+# This is ripped from https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh 8b37f817c29715873b91c8a8e7f883eccc240895
 
 # The git prompt's git commands are read-only and should not interfere with
 # other processes. This environment variable is equivalent to running with `git
@@ -53,7 +53,7 @@ function parse_git_dirty() {
         FLAGS+="--ignore-submodules=${GIT_STATUS_IGNORE_SUBMODULES:-dirty}"
         ;;
     esac
-    STATUS=$(__git_prompt_git status ${FLAGS} 2> /dev/null | tail -n1)
+    STATUS=$(__git_prompt_git status ${FLAGS} 2> /dev/null | tail -1)
   fi
   if [[ -n $STATUS ]]; then
     echo "$ZSH_THEME_GIT_PROMPT_DIRTY"
@@ -172,7 +172,7 @@ function git_prompt_status() {
     '\?\? '     'UNTRACKED'
     'A  '       'ADDED'
     'M  '       'ADDED'
-    'MM '       'ADDED'
+    'MM '       'MODIFIED'
     ' M '       'MODIFIED'
     'AM '       'MODIFIED'
     ' T '       'MODIFIED'

@@ -7,7 +7,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Convenient file download shortcut
-alias cdl='curl --remote-name-all -fRLJ'
+alias cdl='curl --remote-name-all --fail --remote-time --location'
 
 # git is the real mvp
 alias diff='git diff --no-index'
