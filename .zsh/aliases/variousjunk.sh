@@ -1,5 +1,6 @@
 # More colour to the people
-alias grep='grep --color'
+alias grep='grep --color=auto'
+alias ip='ip -color=auto'
 
 # Interactive file operations
 alias rm='rm -i'
