@@ -8,6 +8,10 @@ alias ls='ls --color=tty'
 # Take advantage of $LS_COLORS for completion as well.
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
+# manpages & less
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export LESS='-R --use-color -Dd+r$Du+b'
+
 # git theme shit, see git.zsh
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX=") %{$reset_color%}"
