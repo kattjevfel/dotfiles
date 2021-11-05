@@ -6,7 +6,7 @@ setopt prompt_subst # http://zsh.sourceforge.net/Doc/Release/Options.html#index-
 setopt correct_all # Enable correction
 
 path=(
-	/mnt/jupiter/etc/Projects/scripts
+	~/build/scripts/gitrepo
 	~/build/scripts
 	~/.local/bin
 	$path
