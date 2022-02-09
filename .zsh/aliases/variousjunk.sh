@@ -19,7 +19,7 @@ alias dotconfig='git --git-dir=$HOME/build/dotfiles --work-tree=$HOME'
 
 # typing is hard
 alias gg='gallery-dl'
-alias gghere='gallery-dl -d $PWD -o directory=\[]'
+alias gghere='gallery-dl --directory $PWD'
 alias l='ls -lh'   #size,show type,human readable
 alias lsa='ls -lAh' #long list,show almost all,show type,human readable
 alias svim='sudo vim'

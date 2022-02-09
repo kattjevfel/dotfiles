@@ -1,3 +1,5 @@
+# synced with 16de51404773a5e849c25a95e7612e212e7256a7
+
 zmodload -i zsh/complist
 
 WORDCHARS=''
@@ -46,7 +48,10 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 zstyle '*' single-ignored show
 
 expand-or-complete-with-dots() {
-    print -Pn "%F{red}…%f"
+    # use $COMPLETION_WAITING_DOTS either as toggle or as the sequence to show
+    COMPLETION_WAITING_DOTS="%F{red}…%f"
+    # turn off line wrapping and print prompt-expanded "dot" sequence
+    printf '\e[?7l%s\e[?7h' "${(%)COMPLETION_WAITING_DOTS}"
     zle expand-or-complete
     zle redisplay
 }

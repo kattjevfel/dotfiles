@@ -6,10 +6,10 @@
 # Fully supports screen, and probably most modern xterm and rxvt
 # (In screen, only short_tab_title is used)
 function title {
-  emulate -L zsh
-  setopt prompt_subst
+  setopt localoptions nopromptsubst
 
-  [[ "$INSIDE_EMACS" == *term* ]] && return
+  # Don't set the title if inside emacs, unless using vterm
+  [[ -n "$INSIDE_EMACS" && "$INSIDE_EMACS" != vterm ]] && return
 
   # if $2 is unset use $1 as default
   # if it is set and empty, leave it as is
@@ -24,12 +24,9 @@ function title {
       print -Pn "\ek${1:q}\e\\" # set screen hardstatus
       ;;
     *)
-      # Try to use terminfo to set the title
-      # If the feature is available set title
-      if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
-        echoti tsl
-        print -Pn "$1"
-        echoti fsl
+      # Try to use terminfo to set the title if the feature is available
+      if (( ${+terminfo[fsl]} && ${+terminfo[tsl]} )); then
+        print -Pn "${terminfo[tsl]}$1${terminfo[fsl]}"
       fi
       ;;
   esac
@@ -40,13 +37,13 @@ ZSH_THEME_TERM_TITLE_IDLE="%n@%m:%~"
 
 # Runs before showing the prompt
 function omz_termsupport_precmd {
-  [[ "${DISABLE_AUTO_TITLE:-}" == true ]] && return
-  title $ZSH_THEME_TERM_TAB_TITLE_IDLE $ZSH_THEME_TERM_TITLE_IDLE
+  [[ "${DISABLE_AUTO_TITLE:-}" != true ]] || return
+  title "$ZSH_THEME_TERM_TAB_TITLE_IDLE" "$ZSH_THEME_TERM_TITLE_IDLE"
 }
 
 # Runs before executing the command
 function omz_termsupport_preexec {
-  [[ "${DISABLE_AUTO_TITLE:-}" == true ]] && return
+  [[ "${DISABLE_AUTO_TITLE:-}" != true ]] || return
 
   emulate -L zsh
   setopt extended_glob
@@ -89,12 +86,14 @@ function omz_termsupport_preexec {
   fi
 
   # cmd name only, or if this is sudo or ssh, the next cmd
-  local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+  local CMD="${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}"
   local LINE="${2:gs/%/%%}"
 
-  title '$CMD' '%100>...>$LINE%<<'
+  title "$CMD" "%100>...>${LINE}%<<"
 }
 
-autoload -U add-zsh-hook
-add-zsh-hook precmd omz_termsupport_precmd
-add-zsh-hook preexec omz_termsupport_preexec
+autoload -Uz add-zsh-hook
+if [[ -z "$INSIDE_EMACS" || "$INSIDE_EMACS" = vterm ]]; then
+  add-zsh-hook precmd omz_termsupport_precmd
+  add-zsh-hook preexec omz_termsupport_preexec
+fi
