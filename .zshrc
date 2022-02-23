@@ -34,8 +34,9 @@ fi
 
 export AURDEST=/mnt/jupiter/etc/makepkg/pkgbuilds/
 #export AUR_PAGER="less -K"
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
+export HISTFILESIZE=9223372036854775807
+export SAVEHIST=$HISTFILESIZE
+export HISTSIZE=$HISTFILESIZE
 
 # oh-my-zsh crap
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
