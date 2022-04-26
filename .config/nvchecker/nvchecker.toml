@@ -9,6 +9,12 @@ github = "brndnmtthws/conky"
 prefix = "v"
 use_latest_release = true
 
+[ffmpeg-headless]
+source = "git"
+git = "https://git.ffmpeg.org/ffmpeg.git"
+prefix = "n"
+exclude_regex = "(v.*|.*-dev)"
+
 [gallery-dl]
 source = "github"
 github = "mikf/gallery-dl"
@@ -25,14 +31,20 @@ use_latest_release = true
 source = "cmd"
 cmd = '''curl -s https://extensions.libreoffice.org/en/extensions/show/swedish-spelling-dictionary-den-stora-svenska-ordlistan | grep releaseRow -A1 -m2 | grep -Po "\d+.\d+"'''
 
+[kio-noslowremote]
+source = "archpkg"
+archpkg = "kio"
+strip_release = true
+
 [lib32-mozjpeg]
 source = "aur"
 aur = "mozjpeg"
 strip_release = true
 
-[libopenmpt]
-source = "cmd"
-cmd = '''curl -s https://lib.openmpt.org/libopenmpt/feed.xml | grep -oP '(?<=<title>).*?(?=</title>)' -m 1 | grep -o "[0-9]\+.[0-9]\+.[0-9]\+" | head -n1 '''
+[libva-headless]
+source = "github"
+github = "intel/libva"
+use_latest_tag = true
 
 [powerdevil-light]
 source = "archpkg"
@@ -50,13 +62,3 @@ source = "github"
 github = "koalaman/shellcheck"
 prefix = "v"
 use_latest_release = true
-
-[kio-noslowremote]
-source = "archpkg"
-archpkg = "kio"
-strip_release = true
-
-[libva-headless]
-source = "github"
-github = "intel/libva"
-use_latest_tag = true
