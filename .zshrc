@@ -12,9 +12,14 @@ path=(
 	$path
 )
 
+# oh-my-zsh crap
+export ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
+[ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
+for f in ~/.zsh/omzleftovers/*.zsh; do source "$f"; done # Load configs
+
 # Load plugins
+for f in ~/.zsh/plugins/*.zsh; do source "$f"; done
 source /usr/share/doc/pkgfile/command-not-found.zsh
-source ~/.zsh/sudo.plugin.zsh
 
 #for f in ~/.zsh/completions/_*; do source "$f"; done # Load completions
 for f in ~/.zsh/functions/*.sh; do source "$f"; done # Load functions
@@ -32,13 +37,8 @@ else
 	export EDITOR=vim
 fi
 
+# aurutils
 export AURDEST=/mnt/jupiter/etc/makepkg/pkgbuilds/
+#export AUR_CONFIRM_PAGER=1
 #export AUR_PAGER="less -K"
-export HISTFILESIZE=9223372036854775807
-export SAVEHIST=$HISTFILESIZE
-export HISTSIZE=$HISTFILESIZE
-
-# oh-my-zsh crap
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-[ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
-for f in ~/.zsh/omzleftovers/*.zsh; do source "$f"; done # Load configs
+export AUR_SYNC_USE_NINJA=1
