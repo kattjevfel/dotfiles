@@ -23,7 +23,7 @@ alias gghere='gallery-dl --directory $PWD'
 alias l='ls -lh'   #size,show type,human readable
 alias lsa='ls -lAh' #long list,show almost all,show type,human readable
 alias svim='sudo vim'
-alias yy='yt-dlp --compat-options filename'
+alias yy='yt-dlp'
 
 # KDE power options
 alias logout-kde='qdbus org.kde.ksmserver /KSMServer logout 0 0 0'

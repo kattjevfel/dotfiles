@@ -1,0 +1,6 @@
+--compat-options filename
+--embed-metadata
+--parse-metadata "title:%(meta_title)s"
+--parse-metadata "uploader:%(meta_artist)s"
+--all-subs
+--embed-subs
