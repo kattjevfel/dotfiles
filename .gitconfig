@@ -10,3 +10,7 @@
 	smudge = git-lfs smudge -- %f
 [color]
 	ui = auto
+[url "aur:"]
+  insteadOf = https://aur.archlinux.org/
+[url "github:"]
+  insteadOf = https://github.com/
