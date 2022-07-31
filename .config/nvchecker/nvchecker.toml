@@ -9,6 +9,11 @@ github = "brndnmtthws/conky"
 prefix = "v"
 use_latest_release = true
 
+[falltergeist]
+source = "github"
+github = "falltergeist/falltergeist"
+use_latest_release = true
+
 [ffmpeg-headless]
 source = "git"
 git = "https://git.ffmpeg.org/ffmpeg.git"
@@ -30,11 +35,6 @@ use_latest_release = true
 [hunspell-sv]
 source = "cmd"
 cmd = '''curl -s https://extensions.libreoffice.org/en/extensions/show/swedish-spelling-dictionary-den-stora-svenska-ordlistan | grep releaseRow -A1 -m2 | grep -Po "\d+.\d+"'''
-
-[kio-noslowremote]
-source = "archpkg"
-archpkg = "kio"
-strip_release = true
 
 [lib32-mozjpeg]
 source = "aur"
