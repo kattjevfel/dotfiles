@@ -1,4 +1,4 @@
---compat-options filename
+--output "%(title).225B-%(id)s.%(ext)s"
 --embed-metadata
 --parse-metadata "title:%(meta_title)s"
 --parse-metadata "uploader:%(meta_artist)s"
