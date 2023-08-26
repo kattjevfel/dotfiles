@@ -37,8 +37,3 @@ else
 	export EDITOR=vim
 fi
 
-# aurutils
-export AURDEST=/mnt/jupiter/etc/makepkg/pkgbuilds/
-#export AUR_CONFIRM_PAGER=1
-#export AUR_PAGER="less -K"
-export AUR_SYNC_USE_NINJA=1

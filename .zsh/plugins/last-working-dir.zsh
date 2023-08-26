@@ -1,4 +1,4 @@
-# Synced with 869eb2091389eabd919c32b2ca98ed1b0af851e6
+# Synced with fe83581a20ab12010e9168977dc633c9da2924e1
 
 # Flag indicating if we've previously jumped to last directory
 typeset -g ZSH_LAST_WORKING_DIRECTORY
@@ -11,7 +11,7 @@ chpwd_last_working_dir() {
   [[ "$ZSH_SUBSHELL" -eq 0 ]] || return 0
   # Add ".$SSH_USER" suffix to cache file if $SSH_USER is set and non-empty
   local cache_file="$ZSH_CACHE_DIR/last-working-dir${SSH_USER:+.$SSH_USER}"
-  pwd >| "$cache_file"
+  builtin pwd >| "$cache_file"
 }
 
 # Changes directory to the last working directory

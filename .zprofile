@@ -1,4 +1,9 @@
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec sx 
-  #QT_QPA_PLATFORM=wayland MOZ_ENABLE_WAYLAND=1 exec dbus-run-session startplasma-wayland
+    #exec sx 
+    exec startplasma-wayland
+  
+    ## use systemd-environment-d-generator(8) to generate environment, and export those variables
+    #export $(run-parts /usr/lib/systemd/user-environment-generators | xargs)
+    #export QT_QPA_PLATFORMTHEME=qt5ct
+    #exec sway
 fi

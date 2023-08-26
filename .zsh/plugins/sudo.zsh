@@ -1,10 +1,10 @@
-# Synced with 190325049ef93731ab28295dbedf36d44ab33d7a
+# Synced with f8bf8f0029a475831ebfba0799975ede20e08742
 
 # ------------------------------------------------------------------------------
 # Description
 # -----------
 #
-# sudo or sudoedit will be inserted before the command
+# sudo or sudo -e (replacement for sudoedit) will be inserted before the command
 #
 # ------------------------------------------------------------------------------
 # Authors
@@ -13,14 +13,19 @@
 # * Dongweiming <ciici123@gmail.com>
 # * Subhaditya Nath <github.com/subnut>
 # * Marc Cornellà <github.com/mcornella>
+# * Carlo Sala <carlosalag@protonmail.com>
 #
 # ------------------------------------------------------------------------------
 
 __sudo-replace-buffer() {
   local old=$1 new=$2 space=${2:+ }
-  if [[ ${#LBUFFER} -le ${#old} ]]; then
-    RBUFFER="${space}${BUFFER#$old }"
-    LBUFFER="${new}"
+
+  # if the cursor is positioned in the $old part of the text, make
+  # the substitution and leave the cursor after the $new text
+  if [[ $CURSOR -le ${#old} ]]; then
+    BUFFER="${new}${space}${BUFFER#$old }"
+    CURSOR=${#new}
+  # otherwise just replace $old with $new in the text before the cursor
   else
     LBUFFER="${new}${space}${LBUFFER#$old }"
   fi
@@ -37,14 +42,21 @@ sudo-command-line() {
     LBUFFER="${LBUFFER:1}"
   fi
 
-  # If $EDITOR is not set, just toggle the sudo prefix on and off
-  if [[ -z "$EDITOR" ]]; then
-    case "$BUFFER" in
-      sudoedit\ *) __sudo-replace-buffer "sudoedit" "" ;;
-      sudo\ *) __sudo-replace-buffer "sudo" "" ;;
-      *) LBUFFER="sudo $LBUFFER" ;;
-    esac
-  else
+  {
+    # If $SUDO_EDITOR or $VISUAL are defined, then use that as $EDITOR
+    # Else use the default $EDITOR
+    local EDITOR=${SUDO_EDITOR:-${VISUAL:-$EDITOR}}
+
+    # If $EDITOR is not set, just toggle the sudo prefix on and off
+    if [[ -z "$EDITOR" ]]; then
+      case "$BUFFER" in
+        sudo\ -e\ *) __sudo-replace-buffer "sudo -e" "" ;;
+        sudo\ *) __sudo-replace-buffer "sudo" "" ;;
+        *) LBUFFER="sudo $LBUFFER" ;;
+      esac
+      return
+    fi
+
     # Check if the typed command is really an alias to $EDITOR
 
     # Get the first part of the typed command
@@ -69,24 +81,25 @@ sudo-command-line() {
     if [[ "$realcmd" = (\$EDITOR|$editorcmd|${editorcmd:c}) \
       || "${realcmd:c}" = ($editorcmd|${editorcmd:c}) ]] \
       || builtin which -a "$realcmd" | command grep -Fx -q "$editorcmd"; then
-      editorcmd="$cmd" # replace $editorcmd with the typed command so it matches below
+      __sudo-replace-buffer "$cmd" "sudo -e"
+      return
     fi
 
     # Check for editor commands in the typed command and replace accordingly
     case "$BUFFER" in
-      $editorcmd\ *) __sudo-replace-buffer "$editorcmd" "sudoedit" ;;
-      \$EDITOR\ *) __sudo-replace-buffer '$EDITOR' "sudoedit" ;;
-      sudoedit\ *) __sudo-replace-buffer "sudoedit" "$EDITOR" ;;
+      $editorcmd\ *) __sudo-replace-buffer "$editorcmd" "sudo -e" ;;
+      \$EDITOR\ *) __sudo-replace-buffer '$EDITOR' "sudo -e" ;;
+      sudo\ -e\ *) __sudo-replace-buffer "sudo -e" "$EDITOR" ;;
       sudo\ *) __sudo-replace-buffer "sudo" "" ;;
       *) LBUFFER="sudo $LBUFFER" ;;
     esac
-  fi
+  } always {
+    # Preserve beginning space
+    LBUFFER="${WHITESPACE}${LBUFFER}"
 
-  # Preserve beginning space
-  LBUFFER="${WHITESPACE}${LBUFFER}"
-
-  # Redisplay edit buffer (compatibility with zsh-syntax-highlighting)
-  zle redisplay
+    # Redisplay edit buffer (compatibility with zsh-syntax-highlighting)
+    zle && zle redisplay # only run redisplay if zle is enabled
+  }
 }
 
 zle -N sudo-command-line
@@ -95,3 +108,4 @@ zle -N sudo-command-line
 bindkey -M emacs '\e\e' sudo-command-line
 bindkey -M vicmd '\e\e' sudo-command-line
 bindkey -M viins '\e\e' sudo-command-line
+

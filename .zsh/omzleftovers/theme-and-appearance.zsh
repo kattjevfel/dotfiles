@@ -10,7 +10,8 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # manpages & less
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
-export LESS='-R --use-color -Dd+r$Du+b'
+export MANROFFOPT="-P -c"
+export LESS='-R --use-color -Dd+r$Du+b$'
 
 # git theme shit, see git.zsh
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}("
