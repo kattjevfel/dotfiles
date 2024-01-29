@@ -13,7 +13,7 @@
 	ui = auto
 [url "aur:"]
   insteadOf = https://aur.archlinux.org/
-[url "github:"]
-  insteadOf = https://github.com/
+#[url "github:"]
+#  insteadOf = https://github.com/
 [protocol "file"]
 	allow = always

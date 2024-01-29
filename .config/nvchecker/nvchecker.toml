@@ -8,11 +8,11 @@ source = "github"
 github = "falltergeist/falltergeist"
 use_latest_release = true
 
-[ffmpeg-headless]
-source = "git"
-git = "https://git.ffmpeg.org/ffmpeg.git"
-prefix = "n"
-exclude_regex = "(v.*|.*-dev)"
+#[ffmpeg-headless]
+#source = "git"
+#git = "https://git.ffmpeg.org/ffmpeg.git"
+#prefix = "n"
+#exclude_regex = "(v.*|.*-dev)"
 
 [gallery-dl]
 source = "github"
@@ -42,13 +42,11 @@ prefix = "v"
 use_latest_release = true
 
 [libjodycode]
-source = "github"
-github = "jbruchon/libjodycode"
+source = "git"
+git = "https://codeberg.org/jbruchon/libjodycode.git"
 prefix = "v"
-use_max_tag = true
 
 [jdupes]
-source = "github"
-github = "jbruchon/jdupes"
+source = "git"
+git = "https://codeberg.org/jbruchon/jdupes.git"
 prefix = "v"
-use_latest_tag = true
