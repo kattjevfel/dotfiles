@@ -8,7 +8,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Convenient file download shortcuts
-alias cdl='curl --remote-name-all --fail --remote-time --location'
+alias cdl='wcurl'
 alias wdl='wget --content-disposition --quiet --show-progress'
 
 # git is the real mvp

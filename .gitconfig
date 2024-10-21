@@ -17,3 +17,5 @@
 #  insteadOf = https://github.com/
 [protocol "file"]
 	allow = always
+[trailer "changeid"]
+	key = Change-Id
