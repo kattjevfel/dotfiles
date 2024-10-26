@@ -26,6 +26,6 @@ alias svim='sudo vim'
 alias yy='yt-dlp'
 
 # KDE power options
-alias logout-kde='qdbus org.kde.Shutdown /Shutdown logout'
-alias poweroff-kde='qdbus org.kde.Shutdown /Shutdown logoutAndShutdown'
-alias reboot-kde='qdbus org.kde.Shutdown /Shutdown logoutAndReboot'
+alias logout-kde='qdbus6 org.kde.Shutdown /Shutdown logout'
+alias poweroff-kde='qdbus6 org.kde.Shutdown /Shutdown logoutAndShutdown'
+alias reboot-kde='qdbus6 org.kde.Shutdown /Shutdown logoutAndReboot'
