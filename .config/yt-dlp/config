@@ -1,4 +1,5 @@
 --output "%(title).190B-%(id)s.%(ext)s"
+--no-windows-filenames
 --download-archive /mnt/jupiter/etc/yt-dlp_archive
 --embed-metadata
 --parse-metadata "title:%(meta_title)s"
