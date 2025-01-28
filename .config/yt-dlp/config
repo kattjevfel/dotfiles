@@ -1,6 +1,7 @@
 --output "%(title).190B-%(id)s.%(ext)s"
 --no-windows-filenames
 --download-archive /mnt/jupiter/etc/yt-dlp_archive
+--cookies /mnt/jupiter/etc/cookies-youtube-com.txt
 --embed-metadata
 --parse-metadata "title:%(meta_title)s"
 --parse-metadata "uploader:%(meta_artist)s"
